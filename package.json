@@ -1,0 +1,20 @@
+{
+  "name": "hasu-inventory",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "test": "npm run test -w server",
+    "lint": "npm run lint -w server && npm run lint -w client",
+    "build": "npm run build -w server && npm run build -w client",
+    "db:create": "npm run db:create -w server",
+    "db:migrate": "npm run db:migrate -w server",
+    "db:seed": "npm run db:seed -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

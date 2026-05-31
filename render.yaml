@@ -1,0 +1,34 @@
+# Render Blueprint — Hasu Inventory API (backend only)
+# Docs: docs/DEPLOY_RENDER_SUPABASE.md
+#
+# After connect: set DATABASE_URL, JWT_SECRET, FRONTEND_URL in the Render dashboard.
+
+services:
+  - type: web
+    name: hasu-inventory-api
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: .
+    buildCommand: npm install && npm run build -w server
+    startCommand: npm run start:production -w server
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_SSL
+        value: "true"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false
+      - key: ACCESS_TOKEN_TTL_SEC
+        value: "3600"
+      - key: REFRESH_TOKEN_TTL_DAYS_REMEMBER
+        value: "30"
+      - key: REFRESH_TOKEN_TTL_DAYS_SESSION
+        value: "1"
