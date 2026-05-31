@@ -64,7 +64,7 @@ Render deploys from Git. Ensure this repo is on GitHub (or GitLab/Bitbucket conn
 | Setting | Value |
 |--------|--------|
 | **Root directory** | *(leave empty — repo root)* |
-| **Build command** | `npm install && npm run build -w server` |
+| **Build command** | `NPM_CONFIG_PRODUCTION=false npm install && npm run build -w server` |
 | **Start command** | `npm run start:production -w server` |
 | **Health check path** | `/api/v1/health` |
 
@@ -117,6 +117,7 @@ Point `FRONTEND_URL` on Render to that client URL for CORS and cookies.
 
 | Issue | Fix |
 |-------|-----|
+| Build fails: `Could not find a declaration file` / `@types/node` | Set build command to `NPM_CONFIG_PRODUCTION=false npm install && npm run build -w server` (see `render.yaml`) |
 | `SSL connection required` | Set `DATABASE_SSL=true` |
 | `password authentication failed` | Reset DB password in Supabase; update `DATABASE_URL` |
 | Migrations fail on extension | Supabase includes `pgcrypto` / `gen_random_uuid()` — should work |

@@ -10,10 +10,13 @@ services:
     plan: free
     region: oregon
     rootDir: .
-    buildCommand: npm install && npm run build -w server
+    # Install devDependencies too (typescript, @types/*) — NODE_ENV=production skips them by default
+    buildCommand: NPM_CONFIG_PRODUCTION=false npm install && npm run build -w server
     startCommand: npm run start:production -w server
     healthCheckPath: /api/v1/health
     envVars:
+      - key: NODE_VERSION
+        value: "22.14.0"
       - key: NODE_ENV
         value: production
       - key: DATABASE_SSL
